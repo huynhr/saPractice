@@ -1,9 +1,11 @@
 import React from 'react';
 
-const List = () => {
+const List = ({messages}) => {
   return (
     <ul>
-      <li>Yay!</li>
+      {
+        messages.map(text => <li>{text.text}</li>)
+      }
     </ul>
   )
 }

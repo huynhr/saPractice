@@ -6,7 +6,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+      messages: []
     }
   }
 
@@ -29,7 +30,8 @@ class App extends React.Component {
         console.log('unable to save properly');
       }
     });
-    this.setState({value: ''})
+    this.setState({value: ''});
+    this.componentDidMount()
   }
 
   componentDidMount() {
@@ -38,15 +40,15 @@ class App extends React.Component {
       url: 'api/get',
       contentType: 'applicaion/json',
       success: (data) => {
-        console.log(data);
+        this.setState({
+          messages: data
+        })
       },
       error: (data) => {
         console.log(`didn't get shit!`)
       }
     })
   }
-
-
 
   render() {
 
@@ -56,7 +58,7 @@ class App extends React.Component {
         <input type="text" value={this.state.value}
                onChange={this.handleChange.bind(this)} />
         <input type="submit" onClick={this.handleSubmit.bind(this)}/>
-        <List/>
+        <List messages={this.state.messages}/>
       </div>
     )
   }
